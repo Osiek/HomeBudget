@@ -13,6 +13,9 @@ namespace HomeBudget
     /// </summary>
     public partial class App : Application
     {
-
+        public  void testc()
+        {
+            System.Console.Write("jej");
+        }
     }
 }
