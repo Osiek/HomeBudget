@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HomeBudget.DAL;
 
 namespace HomeBudget
 {
@@ -20,9 +22,31 @@ namespace HomeBudget
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DAL.AppContext db = new DAL.AppContext();
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource categoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("categoryViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // categoryViewSource.Source = [generic data source]
+            System.Windows.Data.CollectionViewSource entryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("entryViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // entryViewSource.Source = [generic data source]
+            db.Categories.Load();
+            categoryViewSource.Source = db.Categories.Local;
+
+
         }
     }
 }

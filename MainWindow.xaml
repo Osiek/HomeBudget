@@ -1,12 +1,24 @@
-﻿<Window x:Class="HomeBudget.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeBudget"
+        xmlns:Models="clr-namespace:HomeBudget.Models" x:Class="HomeBudget.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="categoryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Category}, CreateList=True}"/>
+        <CollectionViewSource x:Key="entryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Entry}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource categoryViewSource}">
+        <Button Content="Kliknij" HorizontalAlignment="Left" Margin="84,48,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,109,107,10" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>
