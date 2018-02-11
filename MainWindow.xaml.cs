@@ -29,7 +29,7 @@ namespace HomeBudget
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_ImportCsv(object sender, RoutedEventArgs e)
         {
 
         }
@@ -41,11 +41,12 @@ namespace HomeBudget
             // Load data by setting the CollectionViewSource.Source property:
             // categoryViewSource.Source = [generic data source]
             System.Windows.Data.CollectionViewSource entryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("entryViewSource")));
+            System.Windows.Data.CollectionViewSource shopViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("shopViewSource")));
             // Load data by setting the CollectionViewSource.Source property:
             // entryViewSource.Source = [generic data source]
-            db.Categories.Load();
-            categoryViewSource.Source = db.Categories.Local;
-
+            db.Entries.Load();
+            db.Shops.Load();
+            entryViewSource.Source = db.Entries.Local;
 
         }
     }

@@ -7,7 +7,7 @@ using HomeBudget.Models;
 
 namespace HomeBudget.DAL
 {
-    class AppInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<AppContext>
+    class AppInitializer : System.Data.Entity.DropCreateDatabaseAlways<AppContext>
     {
         protected override void Seed(AppContext context)
         {
@@ -34,6 +34,7 @@ namespace HomeBudget.DAL
             var entries = new List<Entry>
             {
             new Entry{ID=1, ShopID=2, Date=DateTime.Parse("2018-01-10"), Price=11.98m, Description="biedronka 13, lodz"},
+            new Entry{ID=2, ShopID=1, Date=DateTime.Parse("2018-02-10"), Price=5.98m, Description="Central 13, lodz"}
             };
             entries.ForEach(s => context.Entries.Add(s));
             context.SaveChanges();
@@ -42,7 +43,9 @@ namespace HomeBudget.DAL
             {
             new Item{ID=1, EntryID=1, CategoryID=1, Name="Rogalik", Price=2.49m},
             new Item{ID=2, EntryID=1, CategoryID=1, Name="Rogalik", Price=2.49m},
-            new Item{ID=3, EntryID=1, CategoryID=4, Name="Czekolada", Price=4.99m}
+            new Item{ID=3, EntryID=1, CategoryID=4, Name="Czekolada", Price=4.99m},
+            new Item{ID=4, EntryID=2, CategoryID=1, Name="Rogalik", Price=2.49m},
+            new Item{ID=5, EntryID=2, CategoryID=4, Name="Czekolada", Price=4.99m}
             };
 
             items.ForEach(s => context.Items.Add(s));
