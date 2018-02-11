@@ -23,15 +23,21 @@ namespace HomeBudget
     public partial class MainWindow : Window
     {
         private DAL.AppContext db = new DAL.AppContext();
+        ImportCsvWindow importWindow;
 
         public MainWindow()
         {
             InitializeComponent();
+            importWindow = new ImportCsvWindow() {
+                ShowInTaskbar = false
+            };
+
+            importWindow.Hide();
         }
 
         private void Button_ImportCsv(object sender, RoutedEventArgs e)
         {
-
+            importWindow.Show();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
