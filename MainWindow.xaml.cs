@@ -29,9 +29,8 @@ namespace HomeBudget
         {
             InitializeComponent();
             importWindow = new ImportCsvWindow() {
-                ShowInTaskbar = false
+                ShowInTaskbar = false,
             };
-
             importWindow.Hide();
         }
 
@@ -42,6 +41,7 @@ namespace HomeBudget
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            importWindow.Owner = Application.Current.MainWindow;
 
             System.Windows.Data.CollectionViewSource categoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("categoryViewSource")));
             // Load data by setting the CollectionViewSource.Source property:
@@ -54,6 +54,14 @@ namespace HomeBudget
             db.Shops.Load();
             entryViewSource.Source = db.Entries.Local;
 
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+            //this.importWindow = null;
+            //importWindow.Close();
+            
         }
     }
 }
