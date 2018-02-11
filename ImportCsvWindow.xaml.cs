@@ -26,6 +26,7 @@ namespace HomeBudget
     {
         private DAL.AppContext db = new DAL.AppContext();
         private string lastOpendLocation;
+        CsvFile csvFile;
 
         public ImportCsvWindow()
         {
@@ -35,15 +36,31 @@ namespace HomeBudget
 
         private void Button_OpenFile(object sender, RoutedEventArgs e)
         {
-            FileStream csvStream = null;
-            OpenFileDialog openCsvDialog = new OpenFileDialog();
-            if(lastOpendLocation.Length > 0 && Directory.Exists(lastOpendLocation))
+
+            if (lastOpendLocation.Length > 0 && Directory.Exists(lastOpendLocation))
             {
-                openCsvDialog.InitialDirectory = lastOpendLocation;
+                csvFile = new CsvFile(lastOpendLocation);
+            } else if(Directory.Exists(@"E:\Google Drive\Uczelnia\Semestr 7\Projekt kompetencyjny"))
+            {
+                csvFile = new CsvFile(@"E:\Google Drive\Uczelnia\Semestr 7\Projekt kompetencyjny");
             } else
             {
-                openCsvDialog.InitialDirectory = "C:\\";
+                csvFile = new CsvFile(@"C:\");
             }
+
+            string[] text;
+            OpenFileDialog openCsvDialog = new OpenFileDialog();
+            if()
+            {
+                openCsvDialog.InitialDirectory = lastOpendLocation;
+            } else if(Directory.Exists(@"E:\Google Drive\Uczelnia\Semestr 7\Projekt kompetencyjny"))
+            {
+                openCsvDialog.InitialDirectory = @"E:\Google Drive\Uczelnia\Semestr 7\Projekt kompetencyjny";
+            } else
+            {
+                openCsvDialog.InitialDirectory = @"C:\";
+            }
+
             openCsvDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
             openCsvDialog.FilterIndex = 1;
             openCsvDialog.RestoreDirectory = true;
@@ -51,17 +68,17 @@ namespace HomeBudget
             if (result == true)
             {
                 lastOpendLocation = System.IO.Path.GetDirectoryName(openCsvDialog.FileName);
-
+                pathToFile.Text = openCsvDialog.FileName;
                 try
                 {
-                    using(FileStream fsSource = new FileStream(openCsvDialog.FileName, FileMode.Open, FileAccess.Read))
-                    {
-
-                    }
+                    text = File.ReadAllLines(openCsvDialog.FileName);
                 } catch(Exception ex)
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                    return;
                 }
+                
+
             }
 
 
