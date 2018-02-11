@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,16 +10,18 @@ namespace HomeBudget.Models
 {
     class CsvFile
     {
-        string Content { get; set; }
-        string DirectoryPath { get; set; }
-        string FileName { get; set; }
-        string ColumnSeparator { get; set; }
+        public string[] Content { get; set; }
+        public string DirectoryPath { get; set; }
+        public string FileName { get; set; }
+        public string ColumnSeparator { get; set; }
         private OpenFileDialog FileDialog { get; set; }
+        public List<string[]> ContentList {get; set;}
 
         public CsvFile(string lastDirectoryPath)
         {
             this.DirectoryPath = lastDirectoryPath;
             FileDialog = new OpenFileDialog();
+            ContentList = new List<string[]>();
         }
 
         public bool? OpenFileDialog()
@@ -33,12 +36,27 @@ namespace HomeBudget.Models
             return result;
         }
 
-        private void GetFilePath()
+        public void GetFileContent()
         {
             if(OpenFileDialog() == true) {
                 this.DirectoryPath = System.IO.Path.GetDirectoryName(FileDialog.FileName);
-                this.FileName = FileDialog.FileName;
+                this.FileName = System.IO.Path.GetFileName(FileDialog.FileName);
+                this.Content = File.ReadAllLines(this.DirectoryPath + "\\" + this.FileName);
+
+                SeparateText();
             }
         }
+
+        public void SeparateText()
+        {
+            this.ContentList.Clear();
+            foreach (var line in Content)
+            {
+                var data = line.Split(new string[] { ColumnSeparator },StringSplitOptions.RemoveEmptyEntries);
+                ContentList.Add(data);
+                ContentList.ElementAt(0);
+            }
+        }
+
     }
 }

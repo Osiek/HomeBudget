@@ -32,11 +32,11 @@ namespace HomeBudget
         {
             InitializeComponent();
             lastOpendLocation = "";
+            csvFile = null;
         }
 
         private void Button_OpenFile(object sender, RoutedEventArgs e)
         {
-
             if (lastOpendLocation.Length > 0 && Directory.Exists(lastOpendLocation))
             {
                 csvFile = new CsvFile(lastOpendLocation);
@@ -48,40 +48,9 @@ namespace HomeBudget
                 csvFile = new CsvFile(@"C:\");
             }
 
-            string[] text;
-            OpenFileDialog openCsvDialog = new OpenFileDialog();
-            if()
-            {
-                openCsvDialog.InitialDirectory = lastOpendLocation;
-            } else if(Directory.Exists(@"E:\Google Drive\Uczelnia\Semestr 7\Projekt kompetencyjny"))
-            {
-                openCsvDialog.InitialDirectory = @"E:\Google Drive\Uczelnia\Semestr 7\Projekt kompetencyjny";
-            } else
-            {
-                openCsvDialog.InitialDirectory = @"C:\";
-            }
-
-            openCsvDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
-            openCsvDialog.FilterIndex = 1;
-            openCsvDialog.RestoreDirectory = true;
-            Nullable<bool> result = openCsvDialog.ShowDialog();
-            if (result == true)
-            {
-                lastOpendLocation = System.IO.Path.GetDirectoryName(openCsvDialog.FileName);
-                pathToFile.Text = openCsvDialog.FileName;
-                try
-                {
-                    text = File.ReadAllLines(openCsvDialog.FileName);
-                } catch(Exception ex)
-                {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                    return;
-                }
-                
-
-            }
-
-
+            csvFile.GetFileContent();
+            pathToFile.Text = csvFile.DirectoryPath + "\\" + csvFile.FileName;
+            this.lastOpendLocation = csvFile.DirectoryPath;
         }
 
         private void ImportCsvWindow_Closing(object sender, CancelEventArgs e)
@@ -90,12 +59,17 @@ namespace HomeBudget
             this.Hide();
         }
 
-        private void ImportCsvWindow_Closing(object sender, CancelEventArgs e, int root)
+        private void columnSeparator_TextChanged(object sender, EventArgs e)
         {
-            if(root == 1)
+            if(csvFile != null)
             {
-                e.Cancel = false;
+                csvFile.ColumnSeparator = columnSeparator.Text;
+                csvFile.SeparateText();
+
+                importedDataPreview.ItemsSource = csvFile.ContentList.ToArray();
             }
+
+
         }
     }
 }
