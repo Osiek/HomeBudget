@@ -20,42 +20,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TabControl HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0">
-            <TabItem Header="Dane" Height="auto">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Button Content="Importuj .csv" HorizontalAlignment="Left" Padding="5" Margin="5" VerticalAlignment="Top" Width="85" Click="Button_ImportCsv" Grid.Row="0" Grid.Column="0"/>
-                    <TextBlock Text="Wybierz miesiąc:" Grid.Column="0" Grid.Row="1" Margin="5"/>
-                    <TextBox Grid.Column="0" Grid.Row="2" Padding="1" Margin="5" Width="150" HorizontalAlignment="Left" />
-                    <DataGrid Grid.Row="3" Grid.Column="0" Margin="5" x:Name="entryDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource entryViewSource}}" RowDetailsVisibilityMode="VisibleWhenSelected">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="SizeToCells"/>
-                            <DataGridTemplateColumn x:Name="dateColumn" Header="Data" Width="SizeToCells">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <DatePicker SelectedDate="{Binding Date, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn x:Name="descriptionColumn" Binding="{Binding Description}" Header="Opis" Width="*"/>
-                            <DataGridTextColumn x:Name="priceColumn" Binding="{Binding Price}" Header="Kwota" Width="SizeToCells"/>
-                            <DataGridTextColumn x:Name="shopColumn" Binding="{Binding Shop.Name}" Header="Sklep" Width="SizeToCells"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
+            <TabItem Header="Transakcje" Height="auto">
             </TabItem>
             <TabItem Header="Raporty">
-                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Kategorie" Height="auto">
+            </TabItem>
+            <TabItem Header="Sklepy" Height="auto">
             </TabItem>
         </TabControl>
-        
-
     </Grid>
 </Window>
