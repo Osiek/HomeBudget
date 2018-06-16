@@ -43,16 +43,16 @@ namespace HomeBudget
         {
             importWindow.Owner = Application.Current.MainWindow;
 
-            //System.Windows.Data.CollectionViewSource categoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("categoryViewSource")));
+            System.Windows.Data.CollectionViewSource categoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("categoryViewSource")));
             // Load data by setting the CollectionViewSource.Source property:
             // categoryViewSource.Source = [generic data source]
-            //System.Windows.Data.CollectionViewSource entryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("entryViewSource")));
-            //System.Windows.Data.CollectionViewSource shopViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("shopViewSource")));
+            System.Windows.Data.CollectionViewSource entryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("entryViewSource")));
+            System.Windows.Data.CollectionViewSource shopViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("shopViewSource")));
             // Load data by setting the CollectionViewSource.Source property:
             // entryViewSource.Source = [generic data source]
-            //db.Entries.Load();
-            //db.Shops.Load();
-            //entryViewSource.Source = db.Entries.Local;
+            db.Entries.Load();
+            db.Shops.Load();
+            entryViewSource.Source = db.Entries.Local;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

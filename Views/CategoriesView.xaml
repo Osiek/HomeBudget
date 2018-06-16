@@ -1,0 +1,34 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HomeBudget.Views"
+             xmlns:Models="clr-namespace:HomeBudget.Models" x:Class="HomeBudget.Views.CategoriesView"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="categoryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Category}, CreateList=True}"/>
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource categoryViewSource}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Nazwa kategorii" Margin="5,5,2,2"/>
+        <TextBox x:Name="categoryNameInput" Grid.Column="0" Grid.Row="1" Margin="5" Padding="1"/>
+        <Button x:Name="saveCategoryButton" Click="saveCategoryClick" Content="Dodaj" Width="150" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Margin="5"/>
+        <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" Grid.ColumnSpan="2" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,10,145,174" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="40"/>
+                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Kategoria" Width="410"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
+</UserControl>

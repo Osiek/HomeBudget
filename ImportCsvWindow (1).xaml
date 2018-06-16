@@ -25,7 +25,7 @@
         <TextBlock Margin="5" Padding="1" Grid.Row="1" Grid.Column="0" Text="Separator kolumn:" VerticalAlignment="Bottom"/>
         <TextBox Name="columnSeparator" Margin="5" Padding="1" Grid.Row="2" Grid.Column="0" TextChanged="columnSeparator_TextChanged"/>
         <TextBlock Name="SeparatorTextBlock"  Margin="5" Padding="1" Grid.Row="2" Grid.Column="1" Text="{Binding ElementName=columnSeparator, Path=Text, UpdateSourceTrigger=Default}" VerticalAlignment="Bottom" />
-        <DataGrid Name="importedDataPreview"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="True" ItemsSource="{Binding importedList}">
+        <DataGrid Name="importedDataPreview"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="True">
             <DataGrid.Columns>
 
             </DataGrid.Columns>

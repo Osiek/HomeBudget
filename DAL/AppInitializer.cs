@@ -7,7 +7,7 @@ using HomeBudget.Models;
 
 namespace HomeBudget.DAL
 {
-    class AppInitializer : System.Data.Entity.DropCreateDatabaseAlways<AppContext>
+    class AppInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<AppContext>
     {
         protected override void Seed(AppContext context)
         {

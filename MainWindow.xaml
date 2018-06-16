@@ -6,11 +6,13 @@
         xmlns:local="clr-namespace:HomeBudget"
         xmlns:Models="clr-namespace:HomeBudget.Models" x:Class="HomeBudget.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded" Closing="Window_Closing">
+        xmlns:controls="clr-namespace:HomeBudget.Views"
+        Title="MainWindow" Height="720" Width="1280" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
         <CollectionViewSource x:Key="categoryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Category}, CreateList=True}"/>
         <CollectionViewSource x:Key="entryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Entry}, CreateList=True}"/>
         <CollectionViewSource x:Key="shopViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Shop}, CreateList=True}"/>
+        <controls:CategoriesView x:Key="catViews"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource categoryViewSource}">
         <Grid.ColumnDefinitions>
@@ -19,12 +21,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TabControl HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0">
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" Grid.Row="0" Grid.Column="0">
             <TabItem Header="Transakcje" Height="auto">
             </TabItem>
             <TabItem Header="Raporty">
             </TabItem>
             <TabItem Header="Kategorie" Height="auto">
+                <controls:CategoriesView />
             </TabItem>
             <TabItem Header="Sklepy" Height="auto">
             </TabItem>

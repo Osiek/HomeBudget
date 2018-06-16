@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -14,7 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HomeBudget.Controllers;
 using HomeBudget.DAL;
 using HomeBudget.Models;
 using Microsoft.Win32;
@@ -27,20 +25,32 @@ namespace HomeBudget
     public partial class ImportCsvWindow : Window
     {
         private DAL.AppContext db = new DAL.AppContext();
-        public string lastOpendLocation;
-        CsvFileController csvFile;
-        public List<string> importedList { get; set; }
+        private string lastOpendLocation;
+        CsvFile csvFile;
 
         public ImportCsvWindow()
         {
             InitializeComponent();
             lastOpendLocation = "";
-            csvFile = new CsvFileController(this);
+            csvFile = null;
         }
 
         private void Button_OpenFile(object sender, RoutedEventArgs e)
         {
-            csvFile.Open(lastOpendLocation);
+            if (lastOpendLocation.Length > 0 && Directory.Exists(lastOpendLocation))
+            {
+                csvFile = new CsvFile(lastOpendLocation);
+            } else if(Directory.Exists(@"E:\Google Drive\Uczelnia\Semestr 7\Projekt kompetencyjny"))
+            {
+                csvFile = new CsvFile(@"E:\Google Drive\Uczelnia\Semestr 7\Projekt kompetencyjny");
+            } else
+            {
+                csvFile = new CsvFile(@"C:\");
+            }
+
+            csvFile.GetFileContent();
+            pathToFile.Text = csvFile.DirectoryPath + "\\" + csvFile.FileName;
+            this.lastOpendLocation = csvFile.DirectoryPath;
         }
 
         private void ImportCsvWindow_Closing(object sender, CancelEventArgs e)
@@ -51,15 +61,12 @@ namespace HomeBudget
 
         private void columnSeparator_TextChanged(object sender, EventArgs e)
         {
-            if(csvFile.IsFileOpened())
+            if(csvFile != null)
             {
-                csvFile.SetSeparator(columnSeparator.Text);
-                importedList = csvFile.GetTable();
+                csvFile.ColumnSeparator = columnSeparator.Text;
+                csvFile.SeparateText();
 
-                var list = new ObservableCollection<List<string>>();
-                list.Add(importedList);
-                this.importedDataPreview.ItemsSource = list;
-                //importedDataPreview.ItemsSource = csvFile.GetTable();
+                importedDataPreview.ItemsSource = csvFile.ContentList.ToArray();
             }
 
 
