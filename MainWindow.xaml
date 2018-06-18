@@ -9,10 +9,11 @@
         xmlns:controls="clr-namespace:HomeBudget.Views"
         Title="MainWindow" Height="720" Width="1280" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
-        <CollectionViewSource x:Key="categoryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Category}, CreateList=True}"/>
+        <CollectionViewSource x:Key="categoryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Shop}, CreateList=True}"/>
         <CollectionViewSource x:Key="entryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Entry}, CreateList=True}"/>
         <CollectionViewSource x:Key="shopViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Shop}, CreateList=True}"/>
         <controls:CategoriesView x:Key="catViews"/>
+        <controls:ShopsView x:Key="shopViews"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource categoryViewSource}">
         <Grid.ColumnDefinitions>
@@ -30,6 +31,7 @@
                 <controls:CategoriesView />
             </TabItem>
             <TabItem Header="Sklepy" Height="auto">
+                <controls:ShopsView />
             </TabItem>
         </TabControl>
     </Grid>

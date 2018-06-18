@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using HomeBudget.Controllers;
 using System.Data.Entity;
 using System.Linq;
+using HomeBudget.Models;
 
 namespace HomeBudget.Views
 {
@@ -49,15 +50,33 @@ namespace HomeBudget.Views
             categoryNameInput.IsEnabled = true;
 
             //Refreshes datagrid, but in documentation they say that categoryDataGrid.Items.Refresh(); should be enough
-            db.Categories.Load();
+            RefreshCategoryTable();
             //categoryViewSource.Source = db.Categories.Local;
-            categoryDataGrid.Items.Refresh();
+            //categoryDataGrid.Items.Refresh(); //zbędne, bo db.Categories.Local to ObservableCollection czyli automatycznie powiadamia UI o zmianie zawartosci
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            db.Categories.Load();
+            RefreshCategoryTable();
 
+            categoryViewSource.Source = db.Categories.Local;
+        }
+
+        private void DeleteCategoryButton(object sender, RoutedEventArgs e)
+        {
+            Category categoryToDelete = (sender as Button).DataContext as Category;
+            if(categoryToDelete != null)
+            {
+                categoryController.Delete(categoryToDelete.ID);
+            }
+            
+            RefreshCategoryTable();
+        }
+
+        private void RefreshCategoryTable()
+        {
+            categoryViewSource.Source = null;
+            db.Categories.Load();
             categoryViewSource.Source = db.Categories.Local;
         }
     }

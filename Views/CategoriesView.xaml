@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600" Loaded="UserControl_Loaded">
     <UserControl.Resources>
-        <CollectionViewSource x:Key="categoryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Category}, CreateList=True}"/>
+        <CollectionViewSource x:Key="categoryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Shop}, CreateList=True}"/>
     </UserControl.Resources>
     <Grid DataContext="{StaticResource categoryViewSource}">
         <Grid.ColumnDefinitions>
@@ -25,8 +25,15 @@
         <Button x:Name="saveCategoryButton" Click="saveCategoryClick" Content="Dodaj" Width="150" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Margin="5"/>
         <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" Grid.ColumnSpan="2" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,10,145,174" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="40"/>
-                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Kategoria" Width="410"/>
+                <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="40" IsReadOnly="True"/>
+                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Kategoria" Width="410" IsReadOnly="True"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="DeleteCategoryButton">Usuń</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

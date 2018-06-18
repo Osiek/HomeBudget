@@ -32,6 +32,12 @@ namespace HomeBudget
                 ShowInTaskbar = false,
             };
             importWindow.Hide();
+
+            var shopContr = new HomeBudget.Controllers.ShopController();
+            var listOfShops = shopContr.GetAll();
+            shopContr.Add("Biedronka");
+            shopContr.Add("Auchan");
+            var newListOfShops = shopContr.GetAll();
         }
 
         private void Button_ImportCsv(object sender, RoutedEventArgs e)
