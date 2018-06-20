@@ -4,19 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
-        xmlns:models="clr-namespace:WpfApp1.Models"
         mc:Ignorable="d"
         Title="MainWindow" Height="200" Width="300">
-
-    <Window.Resources>
-        <models:User x:Key="patrykUser" FirstName="Patryk" />
-    </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <TextBlock x:Name="UserFirstNameTextBlock" Text="{Binding Source={StaticResource patrykUser}, Path=FirstName}" Grid.Row="1" Padding="5"/>
-        <Button x:Name="ChangeFirstNameButton" Click="ChangeFirstName_Click" Content="Zmień imię" Width="100" Height="30" Margin="5, 2" HorizontalAlignment="Left"  />
-    </Grid>
+    <Border Padding="10">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Margin" Value="0,0,0,5"/>
+                </Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Margin" Value="0,0,0,5"/>
+                </Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="0,0,0,5"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBox x:Name="UserFirstNameTextBox" Width="150" HorizontalAlignment="Left" />
+            <Button x:Name="ChangeFirstNameButton" Click="ChangeFirstName_Click" Content="Zmień imię" Width="100" Height="30" HorizontalAlignment="Left"  />
+            <TextBlock x:Name="UserFirstNameTextBlock" Text="{Binding Path=FirstName}"/>
+        </StackPanel>
+    </Border>
 </Window>

@@ -11,16 +11,19 @@ namespace HomeBudget.Controllers
     {
         private DAL.AppContext db = new DAL.AppContext();
 
-        public void Add(string categoryName)
+        public void Add(string shopName)
         {
-            var shop = new Shop();
-
-            if (FindIfNameExists(categoryName) != true)
+            if (shopName.Trim().Length > 0)
             {
-                shop.Name = categoryName;
+                var shop = new Shop();
 
-                db.Shops.Add(shop);
-                db.SaveChanges();
+                if (FindIfNameExists(shopName) != true)
+                {
+                    shop.Name = shopName;
+
+                    db.Shops.Add(shop);
+                    db.SaveChanges();
+                }
             }
         }
 
@@ -34,9 +37,9 @@ namespace HomeBudget.Controllers
             }
         }
 
-        public void Delete(int id)
+        public void Delete(Shop shop)
         {
-            Shop shopToDelete = db.Shops.Find(id);
+            Shop shopToDelete = db.Shops.Find(shop.ID);
             if (shopToDelete != null)
             {
                 db.Shops.Remove(shopToDelete);

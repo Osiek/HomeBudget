@@ -25,59 +25,38 @@ namespace HomeBudget.Views
     public partial class CategoriesView : UserControl
     {
         private CategoryController categoryController;
-        private DAL.AppContext db = new DAL.AppContext();
-        System.Windows.Data.CollectionViewSource categoryViewSource;
 
         public CategoriesView()
         {
             InitializeComponent();
-            categoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("categoryViewSource")));
             categoryController = new CategoryController();
         }
 
-        private void saveCategoryClick(object sender, RoutedEventArgs e)
+        private void saveCategoryEvent(object sender, RoutedEventArgs e)
         {
-            categoryNameInput.IsEnabled = false;
-            string categoryText = categoryNameInput.Text.Trim();
-
-            if (categoryText.Length > 0)
-            {
-                categoryController.Add(categoryText);
-            }
-
+            categoryController.Add(categoryNameInput.Text);
             categoryNameInput.Text = "";
 
-            categoryNameInput.IsEnabled = true;
-
-            //Refreshes datagrid, but in documentation they say that categoryDataGrid.Items.Refresh(); should be enough
             RefreshCategoryTable();
-            //categoryViewSource.Source = db.Categories.Local;
-            //categoryDataGrid.Items.Refresh(); //zbędne, bo db.Categories.Local to ObservableCollection czyli automatycznie powiadamia UI o zmianie zawartosci
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             RefreshCategoryTable();
-
-            categoryViewSource.Source = db.Categories.Local;
         }
 
         private void DeleteCategoryButton(object sender, RoutedEventArgs e)
         {
             Category categoryToDelete = (sender as Button).DataContext as Category;
-            if(categoryToDelete != null)
-            {
-                categoryController.Delete(categoryToDelete.ID);
-            }
-            
+            categoryController.Delete(categoryToDelete);
+
             RefreshCategoryTable();
         }
 
         private void RefreshCategoryTable()
         {
-            categoryViewSource.Source = null;
-            db.Categories.Load();
-            categoryViewSource.Source = db.Categories.Local;
+            this.categoryDataGrid.DataContext = categoryController.GetAll();
+            this.categoryDataGrid.Items.Refresh();
         }
     }
 }

@@ -28,19 +28,16 @@ namespace WpfApp1
 
             MyUser = new User();
             MyUser.FirstName = "Mark";
-
-            Binding myBinding = new Binding("MyUserProperties");
-            myBinding.Mode = BindingMode.TwoWay;
-            myBinding.Source = MyUser.FirstName;
-
-            BindingOperations.SetBinding(UserFirstNameTextBlock, TextBlock.TextProperty, myBinding);
-
-            //UserFirstNameTextBlock.SetBinding(TextBlock.TextProperty, myBinding);
+            this.DataContext = new User() {
+                FirstName = "TestImie",
+                LastName = "TestNazwisko"
+            };
+            this.UserFirstNameTextBlock.DataContext = MyUser;
         }
 
         private void ChangeFirstName_Click(object sender, RoutedEventArgs e)
         {
-            MyUser.FirstName = "Patryk";
+            MyUser.FirstName = UserFirstNameTextBox.Text;
         }
     }
 }

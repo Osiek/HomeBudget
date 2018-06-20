@@ -7,7 +7,7 @@ using HomeBudget.Models;
 
 namespace HomeBudget.Controllers
 {
-    
+
 
     class CategoryController
     {
@@ -15,31 +15,34 @@ namespace HomeBudget.Controllers
 
         public void Add(string categoryName)
         {
-            var category = new Category();
-            
-            if (FindIfNameExists(categoryName) != true)
+            if (categoryName.Trim().Length > 0)
             {
-                category.Name = categoryName;
+                var category = new Category();
 
-                db.Categories.Add(category);
-                db.SaveChanges();
+                if (FindIfNameExists(categoryName) != true)
+                {
+                    category.Name = categoryName;
+
+                    db.Categories.Add(category);
+                    db.SaveChanges();
+                }
             }
         }
 
         public void Edit(int id, string newName)
         {
             Category categoryToEdit = db.Categories.Find(id);
-            if(categoryToEdit != null && FindIfNameExists(newName) != true)
+            if (categoryToEdit != null && FindIfNameExists(newName) != true)
             {
                 categoryToEdit.Name = newName;
                 db.SaveChanges();
             }
         }
 
-        public void Delete(int id)
+        public void Delete(Category category)
         {
-            Category categoryToDelete = db.Categories.Find(id);
-            if(categoryToDelete != null)
+            Category categoryToDelete = db.Categories.Find(category.ID);
+            if (categoryToDelete != null)
             {
                 db.Categories.Remove(categoryToDelete);
                 db.SaveChanges();
@@ -48,15 +51,7 @@ namespace HomeBudget.Controllers
 
         public List<Category> GetAll()
         {
-            List<Category> list = new List<Category>();
-            var categoryList = db.Categories.ToList();
-
-            foreach(var categpry in categoryList)
-            {
-                list.Add(categpry);
-            }
-
-            return list;
+            return db.Categories.ToList();
         }
 
         private bool FindIfNameExists(string name)
