@@ -41,6 +41,7 @@ namespace HomeBudget.Controllers
 
         public void Delete(Category category)
         {
+            //TODO: Move Items from delted shop or something.
             Category categoryToDelete = db.Categories.Find(category.ID);
             if (categoryToDelete != null)
             {

@@ -21,10 +21,10 @@
         <TextBox x:Name="shopNameTextBox" Grid.Column="0" Grid.Row="1" Margin="5" Padding="1"/>
         <Button x:Name="saveShopButton" IsDefault="True" Click="saveShopButton_Click" Content="Dodaj" Width="150" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Margin="5"/>
 
-        <DataGrid x:Name="shopDataGrid" AutoGenerateColumns="False" Grid.ColumnSpan="2" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,10,190,130" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="shopDataGrid" AutoGenerateColumns="False" Grid.ColumnSpan="2" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,10,190,130" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" CellEditEnding="shopDataGrid_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="40" IsReadOnly="True"/>
-                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Sklep" Width="410" IsReadOnly="True"/>
+                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Sklep" Width="410" IsReadOnly="False"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

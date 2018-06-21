@@ -39,6 +39,7 @@ namespace HomeBudget.Controllers
 
         public void Delete(Shop shop)
         {
+            //TODO: Move Entries from delted shop or something.
             Shop shopToDelete = db.Shops.Find(shop.ID);
             if (shopToDelete != null)
             {
@@ -49,15 +50,7 @@ namespace HomeBudget.Controllers
 
         public List<Shop> GetAll()
         {
-            List<Shop> list = new List<Shop>();
-            var shopList = db.Shops.ToList();
-
-            foreach (var shop in shopList)
-            {
-                list.Add(shop);
-            }
-
-            return list;
+            return db.Shops.ToList();
         }
 
         private bool FindIfNameExists(string name)
@@ -73,6 +66,11 @@ namespace HomeBudget.Controllers
             }
 
             return false;
+        }
+
+        public void SaveChanges()
+        {
+            db.SaveChanges();
         }
     }
 }

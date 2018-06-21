@@ -1,6 +1,7 @@
 ﻿using HomeBudget.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.Entity.ModelConfiguration;
 
 namespace HomeBudget.DAL
 {
@@ -19,6 +20,7 @@ namespace HomeBudget.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            //modelBuilder.Entity<Category>().HasMany<Item>(s => s.Items).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

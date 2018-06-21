@@ -24,6 +24,7 @@ namespace HomeBudget.Views
     public partial class ShopsView : UserControl
     {
         private ShopController shopController;
+        private bool isManualEditCommit;
 
         public ShopsView()
         {
@@ -58,6 +59,22 @@ namespace HomeBudget.Views
             this.shopDataGrid.DataContext = shopController.GetAll();
             this.shopDataGrid.Items.Refresh();
 
+        }
+
+        private void shopDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            // Stolen from here:
+            // http://codefluff.blogspot.com/2010/05/commiting-bound-cell-changes.html
+
+            if (!isManualEditCommit)
+            {
+                isManualEditCommit = true;
+                DataGrid grid = (DataGrid)sender;
+                grid.CommitEdit(DataGridEditingUnit.Row, true);
+                isManualEditCommit = false;
+            }
+
+            shopController.SaveChanges();
         }
     }
 }
