@@ -14,6 +14,7 @@
         <CollectionViewSource x:Key="shopViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Shop}, CreateList=True}"/>
         <controls:CategoriesView x:Key="catViews"/>
         <controls:ShopsView x:Key="shopViews"/>
+        <controls:TransactionView x:Key="transactionsView"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource categoryViewSource}">
         <Grid.ColumnDefinitions>
@@ -24,6 +25,7 @@
         </Grid.RowDefinitions>
         <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" Grid.Row="0" Grid.Column="0">
             <TabItem Header="Transakcje" Height="auto">
+                <controls:TransactionView />
             </TabItem>
             <TabItem Header="Raporty">
             </TabItem>

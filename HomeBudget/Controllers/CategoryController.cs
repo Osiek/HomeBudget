@@ -69,5 +69,10 @@ namespace HomeBudget.Controllers
 
             return false;
         }
+
+        public void SaveChanges()
+        {
+            db.SaveChanges();
+        }
     }
 }

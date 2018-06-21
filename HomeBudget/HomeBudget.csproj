@@ -88,6 +88,9 @@
     <Compile Include="Views\ShopsView.xaml.cs">
       <DependentUpon>ShopsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TransactionView.xaml.cs">
+      <DependentUpon>TransactionView.xaml</DependentUpon>
+    </Compile>
     <Page Include="ImportCsvWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ShopsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TransactionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

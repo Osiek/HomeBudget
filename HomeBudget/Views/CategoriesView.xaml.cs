@@ -25,6 +25,7 @@ namespace HomeBudget.Views
     public partial class CategoriesView : UserControl
     {
         private CategoryController categoryController;
+        private bool isManualEditCommit;
 
         public CategoriesView()
         {
@@ -57,6 +58,19 @@ namespace HomeBudget.Views
         {
             this.categoryDataGrid.DataContext = categoryController.GetAll();
             this.categoryDataGrid.Items.Refresh();
+        }
+
+        private void categoryDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (!isManualEditCommit)
+            {
+                isManualEditCommit = true;
+                DataGrid grid = (DataGrid)sender;
+                grid.CommitEdit(DataGridEditingUnit.Row, true);
+                isManualEditCommit = false;
+            }
+
+            categoryController.SaveChanges();
         }
     }
 }
