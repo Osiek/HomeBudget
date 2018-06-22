@@ -1,6 +1,7 @@
 ﻿using HomeBudget.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,8 @@ namespace HomeBudget.Controllers
 
         public List<Entry> GetAll()
         {
-            return db.Entries.ToList();
+            db.Configuration.ProxyCreationEnabled = true;
+            return db.Entries.Include(p => p.Shop).ToList();
         }
 
         public List<Shop> GetAllShops()

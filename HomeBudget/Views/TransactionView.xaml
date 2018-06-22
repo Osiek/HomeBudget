@@ -45,14 +45,25 @@
         <TextBlock Text="Opis(opcjonalny)" />
         <TextBox x:Name="descriptionTextBox" Text="demo opis" TextAlignment="Left" Width="260" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
         <Button x:Name="saveTransactionButton" Content="Dodaj transakcję" Width="120" HorizontalAlignment="Left" Height="30" Margin="0, 5" Click="saveTransactionButton_Click"/>
-        <DataGrid x:Name="entryDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="True">
+        <DataGrid x:Name="entryDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="40" IsReadOnly="True"/>
-                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding ShopID}" Header="Sklep" Width="410" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="priceColumn" Binding="{Binding Price}" Header="Kwota" Width="110" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="shopColumn" Binding="{Binding Shop.Name}" Header="Sklep" Width="110" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="descColumn" Binding="{Binding Description}" Header="Opis" Width="110" IsReadOnly="False"/>
+                
+                
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!--<Button Click="DeleteShopButton">Usuń</Button>-->
+                            <!--<Button Click="TransactionDetailsButton">Szczegóły</Button>-->
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!--<Button Click="DeleteTransactionButton">Usuń</Button>-->
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
