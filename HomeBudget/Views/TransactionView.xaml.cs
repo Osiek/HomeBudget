@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HomeBudget.Controllers;
 
 namespace HomeBudget.Views
 {
@@ -20,9 +21,17 @@ namespace HomeBudget.Views
     /// </summary>
     public partial class TransactionView : UserControl
     {
+        private TransactionController transactionController;
+
         public TransactionView()
         {
             InitializeComponent();
+            transactionController = new TransactionController();
+        }
+
+        private void shopComboBox_DropDownOpened(object sender, EventArgs e)
+        {
+            shopComboBox.DataContext = transactionController.GetAllShops();
         }
     }
 }

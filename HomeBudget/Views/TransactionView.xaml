@@ -9,40 +9,43 @@
     <StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="70"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Data operacji" Grid.Column="0" Grid.Row="0"/>
-            <TextBox Text="2018-06-12"  Grid.Column="0" Grid.Row="1" Width="90" TextAlignment="Center"/>
+            <TextBlock Text="Data operacji" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"/>
+            <TextBox Text="2018-06-12"  Grid.Column="0" Grid.Row="1" Width="90" Height="30" VerticalContentAlignment="Center" TextAlignment="Center" HorizontalAlignment="Left"/>
             <Button Content="kalendarz" Grid.Column="1" Grid.Row="1" Width="60"/>
-            <Button Content="dziś" Grid.Column="2" Grid.Row="1" Width="40"/>
+            <Button Content="dziś" Grid.Column="2" Grid.Row="1" Width="40" HorizontalAlignment="Left"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="70"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Kwota" Grid.Column="0" Grid.Row="0"/>
-            <TextBox Text="250,20"  Grid.Column="0" Grid.Row="1" Width="90" TextAlignment="Center"/>
-            
-            <TextBlock Text="zł" Grid.Column="1" Grid.Row="1" Width="60"/>
-            
-            <TextBlock Text="Sklep" Grid.Column="2" Grid.Row="0"/>
-            <ComboBox Grid.Column="2" Grid.Row="1" Width="90">
-                <ComboBoxItem>Lidl</ComboBoxItem>
+            <TextBlock Text="Kwota" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"/>
+            <TextBox Text="250,20"  Grid.Column="0" Grid.Row="1" Width="90" Height="30" VerticalContentAlignment="Center" TextAlignment="Center" HorizontalAlignment="Left"/>
+
+            <TextBlock Text="zł" Grid.Column="1" Grid.Row="1" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+            <TextBlock Text="Sklep" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="shopComboBox" Grid.Column="2" Grid.Row="1" Width="90" HorizontalAlignment="Left" ItemsSource="{Binding}" DisplayMemberPath="Name" DropDownOpened="shopComboBox_DropDownOpened">
             </ComboBox>
-
         </Grid>
-
+        <TextBlock Text="Opis(opcjonalny)" />
+        <TextBox TextAlignment="Left" Width="260" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
+        <Button Content="Dodaj transakcję" Width="120" HorizontalAlignment="Left" Height="30" Margin="0, 5"/>
+        <DataGrid>
+            
+        </DataGrid>
     </StackPanel>
 </UserControl>

@@ -16,6 +16,7 @@
         <controls:ShopsView x:Key="shopViews"/>
         <controls:TransactionView x:Key="transactionsView"/>
     </Window.Resources>
+    <Border Padding="5">
     <Grid DataContext="{StaticResource categoryViewSource}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -37,4 +38,5 @@
             </TabItem>
         </TabControl>
     </Grid>
+    </Border>
 </Window>
