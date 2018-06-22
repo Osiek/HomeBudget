@@ -7,17 +7,14 @@
         xmlns:Models="clr-namespace:HomeBudget.Models" x:Class="HomeBudget.MainWindow"
         mc:Ignorable="d"
         xmlns:controls="clr-namespace:HomeBudget.Views"
-        Title="MainWindow" Height="720" Width="1280" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="MainWindow" Height="720" Width="1280">
     <Window.Resources>
-        <CollectionViewSource x:Key="categoryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Shop}, CreateList=True}"/>
-        <CollectionViewSource x:Key="entryViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Entry}, CreateList=True}"/>
-        <CollectionViewSource x:Key="shopViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Shop}, CreateList=True}"/>
         <controls:CategoriesView x:Key="catViews"/>
         <controls:ShopsView x:Key="shopViews"/>
         <controls:TransactionView x:Key="transactionsView"/>
     </Window.Resources>
     <Border Padding="5">
-    <Grid DataContext="{StaticResource categoryViewSource}">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>

@@ -33,12 +33,15 @@ namespace HomeBudget.Views
         private void shopComboBox_DropDownOpened(object sender, EventArgs e)
         {
             shopComboBox.DataContext = transactionController.GetAllShops();
+            shopComboBox.Items.Refresh();
         }
 
         private void saveTransactionButton_Click(object sender, RoutedEventArgs e)
         {
             Shop selectedShop = shopComboBox.SelectedItem as Shop;
             transactionController.Add(transactionDateTextBox.Text, amountTextBox.Text, selectedShop, descriptionTextBox.Text);
+
+            RefreshTransactionsTable();
         }
 
         private void RefreshTransactionsTable()
@@ -50,6 +53,17 @@ namespace HomeBudget.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             RefreshTransactionsTable();
+            shopComboBox.DataContext = transactionController.GetAllShops();
+            shopComboBox.SelectedItem = 0;
+        }
+
+        private void TransactionDetailsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void DeleteTransactionButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

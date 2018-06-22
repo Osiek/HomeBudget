@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace HomeBudget.Controllers
 {
-    class ShopController
+    class ShopController : BaseController
     {
-        private DAL.AppContext db = new DAL.AppContext();
-
         public void Add(string shopName)
         {
             if (shopName.Trim().Length > 0)
@@ -66,11 +64,6 @@ namespace HomeBudget.Controllers
             }
 
             return false;
-        }
-
-        public void SaveChanges()
-        {
-            db.SaveChanges();
         }
     }
 }

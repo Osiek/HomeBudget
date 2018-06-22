@@ -10,7 +10,6 @@ namespace HomeBudget.Controllers
 {
     class TransactionController : BaseController
     {
-        private CategoryController categoryController;
         private ShopController shopController;
 
         public TransactionController()

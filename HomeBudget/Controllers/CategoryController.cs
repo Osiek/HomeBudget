@@ -9,10 +9,8 @@ namespace HomeBudget.Controllers
 {
 
 
-    class CategoryController
+    class CategoryController : BaseController
     {
-        private DAL.AppContext db = new DAL.AppContext();
-
         public void Add(string categoryName)
         {
             if (categoryName.Trim().Length > 0)
@@ -68,11 +66,6 @@ namespace HomeBudget.Controllers
             }
 
             return false;
-        }
-
-        public void SaveChanges()
-        {
-            db.SaveChanges();
         }
     }
 }
