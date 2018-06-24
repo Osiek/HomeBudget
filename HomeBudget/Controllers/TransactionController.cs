@@ -5,12 +5,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace HomeBudget.Controllers
 {
     class TransactionController : BaseController
     {
         private ShopController shopController;
+        public event EventHandler MyControlBroughtToView;
 
         public TransactionController()
         {
@@ -38,13 +40,14 @@ namespace HomeBudget.Controllers
 
         public List<Entry> GetAll()
         {
-            db.Configuration.ProxyCreationEnabled = true;
-            return db.Entries.Include(p => p.Shop).ToList();
+            return db.Entries.Include(p => p.Shop).AsNoTracking().ToList();
         }
 
         public List<Shop> GetAllShops()
         {
             return shopController.GetAll();
         }
+
+
     }
 }

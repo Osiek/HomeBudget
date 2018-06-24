@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeBudget.Models
 {
-    class CsvFile
+    public class CsvFile
     {
         public string[] Content { get; set; }
         public string DirectoryPath { get; set; }

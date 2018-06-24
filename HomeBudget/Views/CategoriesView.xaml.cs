@@ -72,5 +72,10 @@ namespace HomeBudget.Views
 
             categoryController.SaveChanges();
         }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            RefreshCategoryTable();
+        }
     }
 }

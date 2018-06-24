@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HomeBudget.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="600" Loaded="UserControl_Loaded">
+             d:DesignHeight="400" d:DesignWidth="600" 
+             Loaded="UserControl_Loaded"
+             IsVisibleChanged="UserControl_IsVisibleChanged">
     <StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -45,13 +47,13 @@
         <TextBlock Text="Opis(opcjonalny)" />
         <TextBox x:Name="descriptionTextBox" Text="demo opis" TextAlignment="Left" Width="260" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
         <Button x:Name="saveTransactionButton" Content="Dodaj transakcję" Width="120" HorizontalAlignment="Left" Height="30" Margin="0, 5" Click="saveTransactionButton_Click"/>
-        <DataGrid x:Name="entryDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+        <DataGrid x:Name="entryDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CellEditEnding="entryDataGrid_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="40" IsReadOnly="True"/>
-                <DataGridTextColumn x:Name="dateColumn" Binding="{Binding Date}" Header="ID" Width="90" IsReadOnly="True"/>
-                <DataGridTextColumn x:Name="priceColumn" Binding="{Binding Price}" Header="Kwota" Width="110" IsReadOnly="True"/>
+                <DataGridTextColumn x:Name="dateColumn" Binding="{Binding Date}" Header="Data" Width="90" IsReadOnly="True"/>
+                <DataGridTextColumn x:Name="priceColumn" Binding="{Binding Price}" Header="Kwota" Width="110" IsReadOnly="False"/>
                 <DataGridTextColumn x:Name="shopColumn" Binding="{Binding Shop.Name}" Header="Sklep" Width="110" IsReadOnly="True"/>
-                <DataGridTextColumn x:Name="descColumn" Binding="{Binding Description}" Header="Opis" Width="110" IsReadOnly="True"/>
+                <DataGridTextColumn x:Name="descColumn" Binding="{Binding Description}" Header="Opis" Width="110" IsReadOnly="False"/>
                 
                 
                 <DataGridTemplateColumn>

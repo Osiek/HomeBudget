@@ -23,6 +23,7 @@ namespace HomeBudget.Views
     public partial class TransactionView : UserControl
     {
         private TransactionController transactionController;
+        private bool isManualEditCommit = false;
 
         public TransactionView()
         {
@@ -59,11 +60,31 @@ namespace HomeBudget.Views
 
         private void TransactionDetailsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var transaction = ((Button)sender).DataContext as Entry;
+            var transWindow = new Windows.TransactionDetailsWindow(transaction);
+            transWindow.Show();
         }
         private void DeleteTransactionButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            RefreshTransactionsTable();
+        }
+
+        private void entryDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (!isManualEditCommit)
+            {
+                isManualEditCommit = true;
+                DataGrid grid = (DataGrid)sender;
+                grid.CommitEdit(DataGridEditingUnit.Row, true);
+                isManualEditCommit = false;
+            }
+
+            transactionController.SaveChanges();
         }
     }
 }

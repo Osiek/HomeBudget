@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeBudget.Models
 {
-    class Entry
+    public class Entry
     {
 
         public Entry()

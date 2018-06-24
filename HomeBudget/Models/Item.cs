@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HomeBudget.Models
 {
-    class Item
+    public class Item
     {
 
 

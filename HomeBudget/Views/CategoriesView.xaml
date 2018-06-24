@@ -7,7 +7,9 @@
              xmlns:Models="clr-namespace:HomeBudget.Models" 
              x:Class="HomeBudget.Views.CategoriesView"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="600" Loaded="UserControl_Loaded">
+             d:DesignHeight="400" d:DesignWidth="600" 
+             Loaded="UserControl_Loaded"
+    	     IsVisibleChanged="UserControl_IsVisibleChanged">
 
     <Grid>
         <Grid.ColumnDefinitions>
