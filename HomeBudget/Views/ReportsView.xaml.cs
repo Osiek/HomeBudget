@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HomeBudget.Controllers;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace HomeBudget.Views
 {
@@ -20,9 +23,18 @@ namespace HomeBudget.Views
     /// </summary>
     public partial class ReportsView : UserControl
     {
+        private ReportController reportController;
+
         public ReportsView()
         {
             InitializeComponent();
+            reportController = new ReportController();
+            reportController.GetShopSummaryValues("2018-01-01", "2018-06-26");
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
