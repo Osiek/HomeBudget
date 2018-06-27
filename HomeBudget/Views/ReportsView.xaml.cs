@@ -30,6 +30,7 @@ namespace HomeBudget.Views
             InitializeComponent();
             reportController = new ReportController();
             reportController.GetShopSummaryValues("2018-01-01", "2018-06-26");
+            reportController.GetCategoriesSummaryValues("2018-06-24", "2018-06-27");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
