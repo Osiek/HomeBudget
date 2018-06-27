@@ -9,9 +9,9 @@ namespace HomeBudget.Controllers
 {
     class ReportController : BaseController
     {
-        public Dictionary<Shop, decimal> GetShopSummaryValues(string begin, string end)
+        public Dictionary<string, decimal> GetShopSummaryValues(string begin, string end)
         {
-            Dictionary<Shop, decimal> shopsSummary = new Dictionary<Shop, decimal>();
+            Dictionary<string, decimal> shopsSummary = new Dictionary<string, decimal>();
             DateTime dateBegin;
             DateTime dateEnd;
 
@@ -23,7 +23,7 @@ namespace HomeBudget.Controllers
                         group entry by entry.ShopID into shopsGroup
                         select new
                         {
-                            Shop = shopsGroup.FirstOrDefault().Shop,
+                            Shop = shopsGroup.FirstOrDefault().Shop.Name,
                             Price = shopsGroup.Sum(_ => _.Price)
                         };
 
@@ -36,9 +36,9 @@ namespace HomeBudget.Controllers
             return shopsSummary;
         }
 
-        public Dictionary<Category, decimal> GetCategoriesSummaryValues(string begin, string end)
+        public Dictionary<string, decimal> GetCategoriesSummaryValues(string begin, string end)
         {
-            Dictionary<Category, decimal> shopsSummary = new Dictionary<Category, decimal>();
+            Dictionary<string, decimal> shopsSummary = new Dictionary<string, decimal>();
             DateTime dateBegin;
             DateTime dateEnd;
 
@@ -50,13 +50,13 @@ namespace HomeBudget.Controllers
                         group item by item.CategoryID into itemsGroup
                         select new
                         {
-                            Category = itemsGroup.FirstOrDefault().Category,
+                            Category = itemsGroup.FirstOrDefault().Category.Name,
                             Amount = itemsGroup.Sum(_ => _.Price)
                         };
 
             foreach (var category in query)
             {
-                System.Console.WriteLine("{0} = {1}", category.Category.Name, category.Amount);
+                System.Console.WriteLine("{0} = {1}", category.Category, category.Amount);
                 shopsSummary.Add(category.Category, category.Amount);
             }
 
