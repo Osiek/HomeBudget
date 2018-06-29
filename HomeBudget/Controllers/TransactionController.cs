@@ -48,6 +48,16 @@ namespace HomeBudget.Controllers
             return shopController.GetAll();
         }
 
+        public void Delete(Entry entry)
+        {
+            var entryToDelete = db.Entries.Find(entry.ID);
+            if (entryToDelete != null)
+            {
+                db.Entries.Remove(entryToDelete);
+                db.SaveChanges();
+            }
+        }
+
 
     }
 }

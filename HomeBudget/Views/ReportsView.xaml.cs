@@ -43,15 +43,19 @@ namespace HomeBudget.Views
             Dictionary<string, decimal> plotData = null;
             SeriesCollection.Clear();
             Labels.Clear();
+            string startingDate = "";
+            string endingDate = "";
+            startingDate = startingDateDatePicker.Text;
+            endingDate = endingDateDatePicker.Text;
 
             if (selectedItem == "Sklepy")
             {
-                plotData = reportController.GetShopSummaryValues("2018-01-01", "2018-06-27");
+                plotData = reportController.GetShopSummaryValues(startingDate, endingDate);
 
             }
             else if (selectedItem == "Kategorie")
             {
-                plotData = reportController.GetCategoriesSummaryValues("2018-01-01", "2018-06-27");
+                plotData = reportController.GetCategoriesSummaryValues(startingDate, endingDate);
             }
 
             foreach (var row in plotData)

@@ -69,7 +69,19 @@
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="40" IsReadOnly="True"/>
                 <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Produkt" Width="150" IsReadOnly="False"/>
-                <DataGridTextColumn x:Name="priceColumn" Binding="{Binding Price}" Header="Cena" Width="150" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="priceColumn" Binding="{Binding Price, StringFormat=\{0:0.00\}}" Header="Cena" Width="150" IsReadOnly="False">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment"
+                            Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn x:Name="categoryColumn" Binding="{Binding Category.Name}" Header="Kategoria" Width="200" IsReadOnly="True"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>

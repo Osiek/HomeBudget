@@ -31,6 +31,7 @@ namespace HomeBudget.Windows
         public TransactionDetailsWindow(Entry entry)
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             this.entry = entry;
             this.itemController = new ItemController();
             this.transactionController = new TransactionController();
@@ -40,8 +41,8 @@ namespace HomeBudget.Windows
 
         private void FillFields()
         {
-            transactionDateTextBox.Text = entry.Date.ToString();
-            transactionAmountTextBox.Text = entry.Price.ToString();
+            transactionDateTextBox.Text = entry.Date.ToString("dd.MM.yyyy");
+            transactionAmountTextBox.Text = entry.Price.ToString("0.00");
             shopComboBox.DataContext = transactionController.GetAllShops();
             shopComboBox.SelectedValue = entry.ShopID;
             transactionDescriptionTextBox.Text = entry.Description;

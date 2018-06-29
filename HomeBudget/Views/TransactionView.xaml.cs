@@ -62,11 +62,13 @@ namespace HomeBudget.Views
         {
             var transaction = ((Button)sender).DataContext as Entry;
             var transWindow = new Windows.TransactionDetailsWindow(transaction);
-            transWindow.Show();
+            transWindow.ShowDialog();
         }
         private void DeleteTransactionButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var transaction = ((Button)sender).DataContext as Entry;
+            transactionController.Delete(transaction);
+            RefreshTransactionsTable();
         }
 
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
