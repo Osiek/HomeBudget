@@ -27,6 +27,8 @@ namespace HomeBudget.Views
         public SeriesCollection SeriesCollection { get; set; }
         public List<string> Labels { get; set; }
         public Func<decimal, string> Formatter { get; set; }
+        public DateTime SelectedDateBegin { get; set; }
+        public DateTime SelectedDateEnd { get; set; }
         public ReportsView()
         {
             InitializeComponent();
@@ -35,6 +37,14 @@ namespace HomeBudget.Views
             SeriesCollection = new SeriesCollection();
             Labels = new List<string>();
 
+            var currentYear = DateTime.Now.Year;
+            var currentMonth = DateTime.Now.Month;
+            var currentDay = DateTime.Now.Day;
+
+            SelectedDateBegin = new DateTime(currentYear, currentMonth, 1);
+            SelectedDateEnd = new DateTime(currentYear, currentMonth, currentDay);
+
+            DataContext = this;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -43,19 +53,15 @@ namespace HomeBudget.Views
             Dictionary<string, decimal> plotData = null;
             SeriesCollection.Clear();
             Labels.Clear();
-            string startingDate = "";
-            string endingDate = "";
-            startingDate = startingDateDatePicker.Text;
-            endingDate = endingDateDatePicker.Text;
 
             if (selectedItem == "Sklepy")
             {
-                plotData = reportController.GetShopSummaryValues(startingDate, endingDate);
+                plotData = reportController.GetShopSummaryValues(SelectedDateBegin.ToString(), SelectedDateEnd.ToString());
 
             }
             else if (selectedItem == "Kategorie")
             {
-                plotData = reportController.GetCategoriesSummaryValues(startingDate, endingDate);
+                plotData = reportController.GetCategoriesSummaryValues(SelectedDateBegin.ToString(), SelectedDateEnd.ToString());
             }
 
             foreach (var row in plotData)
@@ -69,8 +75,7 @@ namespace HomeBudget.Views
                 Labels.Add(row.Key);
             }
 
-            Formatter = value => value.ToString();
-            DataContext = this;
+            //Formatter = value => value.ToString("0.00");
 
         }
     }

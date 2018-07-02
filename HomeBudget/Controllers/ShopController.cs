@@ -1,4 +1,5 @@
 ﻿using HomeBudget.Models;
+using HomeBudget.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,14 +42,39 @@ namespace HomeBudget.Controllers
             Shop shopToDelete = db.Shops.Find(shop.ID);
             if (shopToDelete != null)
             {
+                if (GetNumberOfAssignedEntries(shopToDelete) > 0)
+                {
+                    var alteredShops = db.Shops.ToList();
+                    alteredShops.Remove(shopToDelete);
+
+                    var promptWindow = new MoveEntriesToShopWindow(alteredShops);
+                    promptWindow.ShowDialog();
+
+                    if (promptWindow.SelectedShop != null)
+                    {
+                        var entriesToMove = db.Entries.Where(e => e.ShopID == shopToDelete.ID);
+
+                        foreach (var entry in entriesToMove)
+                        {
+                            entry.ShopID = promptWindow.SelectedShop.ID;
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
                 db.Shops.Remove(shopToDelete);
-                db.SaveChanges();
+
             }
+
+            db.SaveChanges();
         }
 
         public List<Shop> GetAll()
         {
-            return db.Shops.ToList();
+            return db.Shops.OrderByDescending(s => s.Entries.Count).ToList();
         }
 
         private bool FindIfNameExists(string name)
@@ -64,6 +90,18 @@ namespace HomeBudget.Controllers
             }
 
             return false;
+        }
+
+        public int GetNumberOfAssignedEntries(Shop shop)
+        {
+            var foundShop = db.Shops.Find(shop.ID);
+
+            if (foundShop != null)
+            {
+                return foundShop.Entries.Count;
+            }
+
+            return 0;
         }
     }
 }

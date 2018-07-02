@@ -12,7 +12,6 @@ namespace HomeBudget.Controllers
     class TransactionController : BaseController
     {
         private ShopController shopController;
-        public event EventHandler MyControlBroughtToView;
 
         public TransactionController()
         {
@@ -24,8 +23,14 @@ namespace HomeBudget.Controllers
             DateTime tmpDate = new DateTime();
             Decimal tmpAmount;
 
-            DateTime.TryParse(date + " 00:00:00", out tmpDate);
-            Decimal.TryParse(amount, out tmpAmount);
+            try
+            {
+                tmpAmount = Decimal.Parse(amount);
+                tmpDate = DateTime.Parse(date);
+            } catch(Exception e)
+            {
+                return;
+            }
 
             var newEntry = new Entry() {
                 Date = tmpDate,
@@ -40,7 +45,7 @@ namespace HomeBudget.Controllers
 
         public List<Entry> GetAll()
         {
-            return db.Entries.Include(p => p.Shop).AsNoTracking().ToList();
+            return db.Entries.OrderByDescending(e => e.Date).Include(p => p.Shop).AsNoTracking().ToList();
         }
 
         public List<Shop> GetAllShops()

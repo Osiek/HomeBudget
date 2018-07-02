@@ -105,6 +105,12 @@
     <Compile Include="Views\TransactionView.xaml.cs">
       <DependentUpon>TransactionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\MoveEntriesToShopWindow.xaml.cs">
+      <DependentUpon>MoveEntriesToShopWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MoveItemsToCategoryWindow.xaml.cs">
+      <DependentUpon>MoveItemsToCategoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\TransactionDetailsWindow.xaml.cs">
       <DependentUpon>TransactionDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -145,6 +151,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TransactionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MoveEntriesToShopWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MoveItemsToCategoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

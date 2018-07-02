@@ -22,10 +22,14 @@ namespace HomeBudget
     /// </summary>
     public partial class MainWindow : Window
     {
+        public DateTime DatePickerDisplayDate { get; set; }
+        public DateTime DatePickerDisplayDateStart { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
+            DatePickerDisplayDate = DateTime.Now;
+            DatePickerDisplayDateStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         }
 
     }

@@ -36,7 +36,7 @@ namespace HomeBudget.Views
         private void saveCategoryEvent(object sender, RoutedEventArgs e)
         {
             categoryController.Add(categoryNameInput.Text);
-            categoryNameInput.Text = "";
+            categoryNameInput.Clear();
 
             RefreshCategoryTable();
         }

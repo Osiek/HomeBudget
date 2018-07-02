@@ -21,7 +21,7 @@
             <RowDefinition Height="30" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="Nazwa kategorii" Margin="5,5,2,2"/>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Nazwa kategorii:" Margin="5" Padding="2" VerticalAlignment="Center"/>
         <TextBox x:Name="categoryNameInput" Grid.Column="0" Grid.Row="1" Margin="5" Padding="1"/>
         <Button x:Name="saveCategoryButton" Click="saveCategoryEvent" Content="Dodaj" Width="150" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Margin="5" IsDefault="True"/>
         <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" Grid.ColumnSpan="2" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,10,145,174" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected" CellEditEnding="categoryDataGrid_CellEditEnding" CanUserAddRows="False">

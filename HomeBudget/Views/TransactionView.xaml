@@ -8,6 +8,27 @@
              d:DesignHeight="400" d:DesignWidth="600" 
              Loaded="UserControl_Loaded"
              IsVisibleChanged="UserControl_IsVisibleChanged">
+    <UserControl.Resources>
+        <Style x:Key="styleCalendar" TargetType="{x:Type Calendar}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Calendar}">
+                        <!-- Wrapping in ViewBox will enlarge calendar of that size.-->
+                        <Viewbox Height="400"
+                         Width="400">
+                            <CalendarItem x:Name="PART_CalendarItem"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"/>
+                        </Viewbox>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FirstDayOfWeek" Value="Monday"/>
+            <Setter Property="DisplayDate" Value="{Binding DatePickerDisplayDate}"/>
+            <Setter Property="DisplayDateStart" Value="{Binding DatePickerDisplayDateStart}"/>
+        </Style>
+    </UserControl.Resources>
     <StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -19,18 +40,9 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Data operacji" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"/>
-            <!--<TextBox x:Name="transactionDateTextBox" Grid.Column="0" Grid.Row="1" Width="90" Height="30" VerticalContentAlignment="Center" TextAlignment="Center" HorizontalAlignment="Left">
-                
-            </TextBox>-->
-            <DatePicker x:Name="transactionDateTextBox" Grid.Column="0" Grid.Row="1" SelectedDateFormat="Short" Padding="2" Margin="5"/>
-            <!--<Button>
-                <StackPanel Orientation="Horizontal" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Image Source="pack://siteoforigin:,,,/Images/calendar_icon.png" Width="20" Height="20" Margin="70,0,0,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="Kalendarz" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>-->
-            <!--<Button Content="Dziś" Grid.Column="2" Grid.Row="1" Width="40" HorizontalAlignment="Left"/>-->
+            <TextBlock Text="Data operacji" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="5" Padding="2" VerticalAlignment="Center"/>
+            <DatePicker CalendarStyle="{StaticResource styleCalendar}" SelectedDate="{Binding TransactionDate}" x:Name="transactionDateTextBox" Grid.Column="0" Grid.Row="1" SelectedDateFormat="Short" Padding="2" Margin="5" VerticalContentAlignment="Center"/>
+
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -42,20 +54,24 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            
-            <TextBlock Text="Kwota" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"/>
+
+            <TextBlock Text="Kwota" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"  Margin="5" Padding="2" VerticalAlignment="Center"/>
             <TextBox x:Name="amountTextBox" Text="250.20"  Grid.Column="0" Grid.Row="1" Width="90" Height="30" VerticalContentAlignment="Center" TextAlignment="Center" HorizontalAlignment="Left"/>
 
-            <TextBlock Text="zł" Grid.Column="1" Grid.Row="1" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Text="zł" Grid.Column="1" Grid.Row="1" Width="60" HorizontalAlignment="Left" Margin="5" Padding="2" VerticalAlignment="Center"/>
 
-            <TextBlock Text="Sklep" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left"/>
+            <TextBlock Text="Sklep" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left"  Margin="5" Padding="2" VerticalAlignment="Center"/>
             <ComboBox x:Name="shopComboBox" Grid.Column="2" Grid.Row="1" Width="90" HorizontalAlignment="Left" ItemsSource="{Binding}" DisplayMemberPath="Name" DropDownOpened="shopComboBox_DropDownOpened" SelectedItem="0" IsSynchronizedWithCurrentItem="True" VerticalContentAlignment="Center" >
             </ComboBox>
         </Grid>
-        <TextBlock Text="Opis(opcjonalny)" HorizontalAlignment="Left"/>
+        <TextBlock Text="Opis(opcjonalny)" HorizontalAlignment="Left" Margin="5" Padding="2" VerticalAlignment="Center"/>
         <TextBox x:Name="descriptionTextBox" Text="demo opis" TextAlignment="Left" Width="260" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
-        <Button x:Name="saveTransactionButton" Content="Dodaj transakcję" Width="120" HorizontalAlignment="Left" Height="30" Margin="0, 5" Click="saveTransactionButton_Click"/>
-        <DataGrid x:Name="entryDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CellEditEnding="entryDataGrid_CellEditEnding">
+        <Button x:Name="saveTransactionButton" 
+                Content="Dodaj transakcję" 
+                Width="120" HorizontalAlignment="Left" Height="30" Margin="0, 5" 
+                Click="saveTransactionButton_Click"
+                IsDefault="True"/>
+        <DataGrid x:Name="entryDataGrid" ItemsSource="{Binding Entries}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CellEditEnding="entryDataGrid_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="40" IsReadOnly="True"/>
                 <DataGridTextColumn x:Name="dateColumn" Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}" Header="Data" Width="90" IsReadOnly="True"/>

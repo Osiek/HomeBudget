@@ -15,8 +15,8 @@ namespace HomeBudget.Controllers
             DateTime dateBegin;
             DateTime dateEnd;
 
-            DateTime.TryParse(begin + " 00:00:00", out dateBegin);
-            DateTime.TryParse(end + " 23:59:59", out dateEnd);
+            DateTime.TryParse(begin, out dateBegin);
+            DateTime.TryParse(end, out dateEnd);
 
             var query = from entry in db.Entries
                         where entry.Date >= dateBegin && entry.Date <= dateEnd
@@ -42,8 +42,8 @@ namespace HomeBudget.Controllers
             DateTime dateBegin;
             DateTime dateEnd;
 
-            DateTime.TryParse(begin + " 00:00:00", out dateBegin);
-            DateTime.TryParse(end + " 23:59:59", out dateEnd);
+            DateTime.TryParse(begin, out dateBegin);
+            DateTime.TryParse(end, out dateEnd);
 
             var query = from item in db.Items
                         where item.Entry.Date >= dateBegin && item.Entry.Date <= dateEnd

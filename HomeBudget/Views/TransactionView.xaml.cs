@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,13 +23,19 @@ namespace HomeBudget.Views
     /// </summary>
     public partial class TransactionView : UserControl
     {
+        public DateTime TransactionDate { get; set; }
         private TransactionController transactionController;
         private bool isManualEditCommit = false;
+        public ObservableCollection<Entry> Entries { get; set; }
 
         public TransactionView()
         {
             InitializeComponent();
             transactionController = new TransactionController();
+            TransactionDate = DateTime.Now;
+            Entries = new ObservableCollection<Entry>();
+            LoadEntries();
+            DataContext = this;
         }
 
         private void shopComboBox_DropDownOpened(object sender, EventArgs e)
@@ -40,14 +47,21 @@ namespace HomeBudget.Views
         private void saveTransactionButton_Click(object sender, RoutedEventArgs e)
         {
             Shop selectedShop = shopComboBox.SelectedItem as Shop;
-            transactionController.Add(transactionDateTextBox.Text, amountTextBox.Text, selectedShop, descriptionTextBox.Text);
+            transactionController.Add(TransactionDate.ToString(), amountTextBox.Text, selectedShop, descriptionTextBox.Text);
 
+            ClearForm();
             RefreshTransactionsTable();
+        }
+
+        private void ClearForm()
+        {
+            this.amountTextBox.Clear();
+            this.descriptionTextBox.Clear();
         }
 
         private void RefreshTransactionsTable()
         {
-            this.entryDataGrid.DataContext = transactionController.GetAll();
+            LoadEntries();
             this.entryDataGrid.Items.Refresh();
         }
 
@@ -87,6 +101,17 @@ namespace HomeBudget.Views
             }
 
             transactionController.SaveChanges();
+        }
+
+        private void LoadEntries()
+        {
+            var tmpEntries = transactionController.GetAll();
+            Entries.Clear();
+
+            foreach(var entry in tmpEntries)
+            {
+                Entries.Add(entry);
+            }
         }
     }
 }

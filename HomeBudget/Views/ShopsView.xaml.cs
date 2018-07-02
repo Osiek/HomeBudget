@@ -35,7 +35,7 @@ namespace HomeBudget.Views
         private void saveShopButton_Click(object sender, RoutedEventArgs e)
         {
             shopController.Add(shopNameTextBox.Text);
-            shopNameTextBox.Text = "";
+            shopNameTextBox.Clear();
 
             RefreshShopsTable();
         }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeBudget.Windows"
         mc:Ignorable="d"
-        Title="Szczegóły transakcji" Height="720" Width="1280">
+        Title="Szczegóły transakcji" Height="600" Width="800">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="5" />
@@ -36,15 +36,19 @@
         <TextBlock HorizontalAlignment="Left">Szczegóły transakcji</TextBlock>
         <StackPanel Orientation="Horizontal">
             <TextBlock>Data operacji:</TextBlock>
-            <TextBox x:Name="transactionDateTextBox"></TextBox>
+            <TextBox x:Name="transactionDateTextBox" IsReadOnly="True"/>
             <TextBlock>Kwota:</TextBlock>
-            <TextBox x:Name="transactionAmountTextBox"></TextBox>
+            <TextBox x:Name="transactionAmountTextBox" IsReadOnly="True"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock>Sklep:</TextBlock>
-            <ComboBox x:Name="shopComboBox" ItemsSource="{Binding}" DisplayMemberPath="Name" SelectedValuePath="ID"></ComboBox>
+            <ComboBox x:Name="shopComboBox" 
+                      ItemsSource="{Binding}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="ID" 
+                      IsEnabled="False"/>
             <TextBlock>Opis:</TextBlock>
-            <TextBox x:Name="transactionDescriptionTextBox"></TextBox>
+            <TextBox x:Name="transactionDescriptionTextBox" IsReadOnly="True"></TextBox>
         </StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -62,10 +66,16 @@
             <TextBlock Grid.Column="2" Grid.Row="0">Kategoria:</TextBlock>
             <TextBox x:Name="itemNameTextBox" Grid.Column="0" Grid.Row="1"></TextBox>
             <TextBox x:Name="itemPriceTextBox" Grid.Column="1" Grid.Row="1"></TextBox>
-            <ComboBox x:Name="itemCategoryComboBox" Grid.Column="2" Grid.Row="1" ItemsSource="{Binding}" DisplayMemberPath="Name" SelectedIndex="0" IsSynchronizedWithCurrentItem="True"></ComboBox>
+            <ComboBox x:Name="itemCategoryComboBox" 
+                      Grid.Column="2" 
+                      Grid.Row="1" 
+                      ItemsSource="{Binding Categories}" 
+                      DisplayMemberPath="Name" 
+                      SelectedIndex="0" 
+                      IsSynchronizedWithCurrentItem="True"/>
             <Button x:Name="itemAddButton" Click="itemAddButton_Click" Content="Dodaj" IsDefault="True" Grid.Column="3" Grid.Row="1"></Button>
         </Grid>
-        <DataGrid x:Name="itemsDataGrid" Margin="5" ItemsSource="{Binding}" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" CellEditEnding="itemsDataGrid_CellEditEnding">
+        <DataGrid x:Name="itemsDataGrid" Margin="5" ItemsSource="{Binding Items}" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" CellEditEnding="itemsDataGrid_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="40" IsReadOnly="True"/>
                 <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Produkt" Width="150" IsReadOnly="False"/>
@@ -82,7 +92,12 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn x:Name="categoryColumn" Binding="{Binding Category.Name}" Header="Kategoria" Width="200" IsReadOnly="True"/>
+                <DataGridComboBoxColumn Header="Kategoria" Width="200"
+                                        DisplayMemberPath="Name"
+                                        SelectedValuePath="ID"
+                                        SelectedValueBinding ="{Binding CategoryID}"
+                                        x:Name="CategoryComboBoxColumn"
+                                        />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

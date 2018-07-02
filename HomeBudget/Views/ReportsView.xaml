@@ -6,16 +6,35 @@
              xmlns:local="clr-namespace:HomeBudget.Views"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="600">
+    <UserControl.Resources>
+        <Style x:Key="styleCalendar" TargetType="{x:Type Calendar}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Calendar}">
+                        <!-- Wrapping in ViewBox will enlarge calendar of that size.-->
+                        <Viewbox Height="400"
+                         Width="400">
+                            <CalendarItem x:Name="PART_CalendarItem"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"/>
+                        </Viewbox>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FirstDayOfWeek" Value="Monday"/>
+        </Style>
+    </UserControl.Resources>
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Data początkowa:"></TextBlock>
-            <DatePicker x:Name="startingDateDatePicker"></DatePicker>
-            <TextBlock Text="Data końcowa:"></TextBlock>
-            <DatePicker x:Name="endingDateDatePicker"></DatePicker>
+            <TextBlock Text="Data początkowa:" Margin="5" Padding="2" VerticalAlignment="Center"></TextBlock>
+            <DatePicker x:Name="startingDateDatePicker" CalendarStyle="{StaticResource styleCalendar}" SelectedDate="{Binding SelectedDateBegin}" VerticalContentAlignment="Center"></DatePicker>
+            <TextBlock Text="Data końcowa:" Margin="5" Padding="2" VerticalAlignment="Center"></TextBlock>
+            <DatePicker x:Name="endingDateDatePicker" CalendarStyle="{StaticResource styleCalendar}" SelectedDate="{Binding SelectedDateEnd}" VerticalContentAlignment="Center"></DatePicker>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Rozbij na:"/>
+            <TextBlock Text="Rozbij na:" Margin="5" Padding="2" VerticalAlignment="Center"/>
             <ComboBox x:Name="reportTypeComboBox" SelectedIndex="0">
                 <ComboBoxItem>Sklepy</ComboBoxItem>
                 <ComboBoxItem>Kategorie</ComboBoxItem>
